@@ -5,7 +5,7 @@ function MovieCard({ id, title, poster, rating }) {
     <Link to={`/movie/${id}`}>
       <div className="movie-card">
         <img
-          src={`https://image.tmdb.org/t/p/w500${poster}`}
+          src={poster}
           alt={title}
         />
         <h3>{title}</h3>

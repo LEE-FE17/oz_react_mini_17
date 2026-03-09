@@ -7,26 +7,29 @@ function App() {
 
   const accessToken = import.meta.env.VITE_TMDB_ACCESS_TOKEN;
 
-  useEffect(() => {
-    const fetchMovies = async () => {
-      const response = await fetch(
-        "https://api.themoviedb.org/3/movie/popular?language=ko-KR&page=1",
-        {
-          headers: {
-            accept: "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
+useEffect(() => {
+const fetchMovies = async () => {
+  const response = await fetch(
+    "https://api.themoviedb.org/3/discover/movie?language=ko-KR&page=1",
+    {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json"
+      }
+    }
+  );
 
-      const data = await response.json();
+  const data = await response.json();
 
-      // adult false 필터
-      const filteredMovies = data.results.filter((movie) => !movie.adult);
+if (!data.results) {
+  console.error(data);
+  return;
+}
 
-      setMovies(filteredMovies);
+const filteredMovies = data.results.filter(movie => !movie.adult);
+setMovies(filteredMovies);
     };
-
+    
     fetchMovies();
   }, [accessToken]);
 
@@ -40,7 +43,7 @@ function App() {
             key={movie.id}
             id={movie.id}
             title={movie.title}
-            poster={movie.poster_path}
+            poster={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
             rating={movie.vote_average}
           />
         ))}
