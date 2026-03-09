@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import MovieCard from "./components/MovieCard";
+import NavBar from "./components/NavBar";
 import "./App.css";
 
 function App() {
@@ -35,6 +36,8 @@ setMovies(filteredMovies);
 
   return (
     <div>
+      <NavBar />
+      
       <h1>인기 영화</h1>
 
       <div className="movie-list">
