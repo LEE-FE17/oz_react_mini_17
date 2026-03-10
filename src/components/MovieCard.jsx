@@ -1,18 +1,17 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-function MovieCard({ title, poster, rating }) {
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    navigate("/details");
-  };
-
+function MovieCard({ id, title, poster, rating }) {
   return (
-    <div className="movie-card" onClick={handleClick}>
-      <img src={poster} alt={title} />
-      <h3>{title}</h3>
-      <p>⭐ {rating}</p>
-    </div>
+    <Link to={`/movie/${id}`}>
+      <div className="movie-card">
+        <img
+          src={poster}
+          alt={title}
+        />
+        <h3>{title}</h3>
+        <p>⭐ {rating}</p>
+      </div>
+    </Link>
   );
 }
 

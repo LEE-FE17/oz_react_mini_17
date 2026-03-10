@@ -3,7 +3,7 @@ function NavBar() {
     <nav className="navbar">
       <h1>MH 무비</h1>
 
-      <input type="text" placeholder="검색" />
+      <input placeholder="영화 검색..." />
 
       <div>
         <button>로그인</button>
