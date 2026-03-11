@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function NavBar() {
 
@@ -14,7 +15,7 @@ function NavBar() {
   };
 
   return (
-    <nav className="flex items-center justify-between px-10 py-4 bg-white shadow">
+    <nav className="flex flex-col md:flex-row items-center justify-between px-6 py-4 gap-4">
 
       {/* 로고 */}
       <h1 className="text-3xl font-bold text-orange-500">
@@ -31,15 +32,20 @@ function NavBar() {
       />
 
       {/* 로그인 회원가입 */}
+
       <div className="flex gap-3">
-        <button className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">
+        <Link to="/login">
+         <button className="px-4 py-2 bg-gray-200 rounded">
           로그인
         </button>
-
-        <button className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">
+        </Link>
+        <Link to="/signup">
+         <button className="px-4 py-2 bg-gray-200 rounded">
           회원가입
         </button>
+        </Link>
       </div>
+      
 
     </nav>
   );
