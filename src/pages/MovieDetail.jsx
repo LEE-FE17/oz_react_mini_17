@@ -43,7 +43,7 @@ function MovieDetail() {
   if (error) return <div>{error}</div>;
 
   return (
-    <div>
+    <div className="flex flex-col md:flex-row gap-8 p-6">
       <h1>{movie.title}</h1>
 
       {movie.poster_path && (
