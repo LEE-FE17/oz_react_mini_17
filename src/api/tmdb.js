@@ -1,14 +1,23 @@
-const API_KEY = import.meta.env.VITE_TMDB_KEY;
-const BASE_URL = "https://api.themoviedb.org/3";
+const accessToken = import.meta.env.VITE_TMDB_ACCESS_TOKEN;
 
-export async function searchMovies(query) {
+export const fetchMovies = async (query) => {
   if (!query) return [];
 
-  const res = await fetch(
-    `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${query}&language=ko-KR`
-  );
+  try {
+    const res = await fetch(
+      `https://api.themoviedb.org/3/search/movie?query=${query}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
-  const data = await res.json();
-
-  return data.results;
-}
+    const data = await res.json();
+    return data.results || [];
+  } catch (error) {
+    console.error("영화 검색 실패:", error);
+    return [];
+  }
+};
