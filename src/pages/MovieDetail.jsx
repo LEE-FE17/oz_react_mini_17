@@ -43,19 +43,27 @@ function MovieDetail() {
   if (error) return <div>{error}</div>;
 
   return (
-    <div className="flex flex-col md:flex-row gap-8 p-6">
-      <h1>{movie.title}</h1>
+    <div className="max-w-4xl mx-auto p-6">
 
-      {movie.poster_path && (
-        <img
-          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-          alt={movie.title}
-        />
-      )}
+  <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+    <h1 className="text-3xl font-bold">{movie.title}</h1>
 
-      <p>{movie.overview}</p>
-      <p>⭐ {movie.vote_average}</p>
+    <div className="text-lg font-semibold mt-2 md:mt-0">
+      ⭐ {movie.vote_average.toFixed(2)}
     </div>
+  </div>
+
+  <img
+    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+    alt={movie.title}
+    className="rounded-lg shadow-lg mx-auto mb-6"
+  />
+
+  <p className="text-lg leading-relaxed">
+    {movie.overview}
+  </p>
+
+</div>
   );
 }
 
