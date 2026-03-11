@@ -1,31 +1,18 @@
 import { useState, useEffect } from "react";
 import MovieCard from "../components/MovieCard";
+import { fetchPopularMovies } from "../api/tmdb";
 
 function Home() {
   const [movies, setMovies] = useState([]);
 
-  const accessToken = import.meta.env.VITE_TMDB_ACCESS_TOKEN;
-
   useEffect(() => {
-    const fetchMovies = async () => {
-      const response = await fetch(
-        "https://api.themoviedb.org/3/discover/movie?language=ko-KR&page=1",
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      const data = await response.json();
-
-      const filteredMovies = data.results.filter((movie) => !movie.adult);
-      setMovies(filteredMovies);
+    const getMovies = async () => {
+      const data = await fetchPopularMovies();
+      setMovies(data);
     };
 
-    fetchMovies();
-  }, [accessToken]);
+    getMovies();
+  }, []);
 
   return (
     <div className="px-10 py-6">
