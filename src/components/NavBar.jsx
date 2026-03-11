@@ -1,18 +1,24 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import useDebounce from "../hooks/useDebounce"; // 추가
 
 function NavBar() {
 
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
 
-  const handleSearch = (e) => {
-    const value = e.target.value;
-    setSearch(value);
+  const debouncedSearch = useDebounce(search, 500); // 추가
 
-    navigate(`/?query=${value}`);
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
   };
+
+  useEffect(() => {
+    if (debouncedSearch !== "") {
+      navigate(`/?query=${debouncedSearch}`);
+    }
+  }, [debouncedSearch, navigate]);
 
   return (
     <nav className="flex flex-col md:flex-row items-center justify-between px-6 py-4 gap-4">
@@ -39,13 +45,13 @@ function NavBar() {
           로그인
         </button>
         </Link>
+
         <Link to="/signup">
          <button className="px-4 py-2 bg-gray-200 rounded">
           회원가입
         </button>
         </Link>
       </div>
-      
 
     </nav>
   );
